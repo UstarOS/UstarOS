@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>陈道希の博客</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    nav {
+      background-color: #444;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ccc;
+    }
+
+ .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+    }
+
+ .article {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+ .article h2 {
+      margin-top: 0;
+    }
+
+ .article p {
+      color: #666;
+    }
+
+ .article a {
+      display: block;
+      margin-top: 10px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    /* 新增搜索框样式 */
+    #search-box {
+      padding: 10px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* 分页按钮样式 */
+ .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+ .pagination button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>陈道希の博客</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">关于我</a></li>
+      <li><a href="contact.html">联系</a></li>
+      <li><a href="login.html">登录</a></li>
+      <li><a href="register.html">注册</a></li>
+    </ul>
+  </nav>
+  <!-- 新增搜索框 -->
+  <div class="container">
+    <input type="text" id="search-box" placeholder="搜索文章标题">
+    <p></p>
+    <div id="article-container">
+      <article class="article" id="article1" style="display: none;">
+        <h2>VsCode安装教程</h2>
+        <p>这是文章 1 的简短摘要，这里可以写几句介绍文章核心内容的话，吸引读者点击阅读全文。</p>
+        <a href="/article/artilce1/article1.html">阅读全文</a>
+      </article>
+      <article class="article" id="article2" style="display: none;">
+        <h2>Idea安装教程</h2>
+        <p>文章 2 的摘要部分，描述一下该文章大致讲了什么，勾起读者好奇心。</p>
+        <a href="/article/artilce2/article2.html">阅读全文</a>
+      </article>
+      <!-- 根据需要添加更多文章，这里假设添加了足够多的文章 -->
+      <article class="article" id="article3" style="display: none;">
+        <h2>文章标题 3</h2>
+        <p>文章 3 的摘要部分内容。</p>
+        <a href="article3.html">阅读全文</a>
+      </article>
+      <article class="article" id="article4" style="display: none;">
+        <h2>文章标题 4</h2>
+        <p>文章 4 的摘要内容介绍。</p>
+        <a href="article4.html">阅读全文</a>
+      </article>
+      <!-- ......更多文章 -->
+    </div>
+    <div class="pagination">
+      <button onclick="showPage(1)">1</button>
+      <button onclick="showPage(2)">2</button>
+      <button onclick="showPage(3)">3</button>
+      <button onclick="showPage(4)">4</button>
+      <!-- 根据实际文章数量动态添加更多按钮，这里先简单示例 -->
+    </div>
+  </div>
+  <footer>
+    <p>版权所有 © 2025 你的名字</p>
+  </footer>
+  <script>
+    const articlesPerPage = 12;
+    const totalArticles = document.querySelectorAll('.article').length;
+    const totalPages = Math.ceil(totalArticles / articlesPerPage);
+
+    function showPage(page) {
+      const startIndex = (page - 1) * articlesPerPage;
+      const endIndex = startIndex + articlesPerPage;
+      const articles = document.querySelectorAll('.article');
+      for (let i = 0; i < articles.length; i++) {
+        if (i >= startIndex && i < endIndex) {
+          articles[i].style.display = 'block';
+        } else {
+          articles[i].style.display = 'none';
+        }
+      }
+    }
+
+    // 初始显示第一页
+    showPage(1);
+  </script>
+  <script src="input_script.js"></script>
+</body>
+
+</html>
