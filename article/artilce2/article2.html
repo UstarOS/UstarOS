@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+       .sidebar-toc {
+            width: 20%;
+            float: left;
+            background-color: #f4f4f4;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+       .article {
+            width: 60%;
+            float: left;
+            padding: 20px;
+        }
+
+       .footer-toc {
+            clear: both;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+       .sidebar-toc ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+       .sidebar-toc li {
+            margin-bottom: 10px;
+        }
+
+       .sidebar-toc a {
+            text-decoration: none;
+            color: #333;
+        }
+
+       .sidebar-toc a:hover {
+            color: #007BFF;
+        }
+
+       .article h1 {
+            margin-bottom: 20px;
+        }
+
+       .article h2 {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+       .like-btn {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+       .article p {
+            line-height: 1.6;
+        }
+
+       .footer-toc ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+       .footer-toc ul li {
+            width: 25%;
+        }
+
+       .footer-toc ul li h4 {
+            margin-bottom: 10px;
+        }
+
+       .footer-toc ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+       .footer-toc ul li a:hover {
+            color: #007BFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar-toc">
+        <h2>目录</h2>
+        <ul id="sidebar-toc-list">
+            <!-- 目录项将动态添加在这里 -->
+        </ul>
+    </div>
+    <div class="article">
+        <h1>文章标题</h1>
+        <h2 id="section1">第一节：引言
+            <button class="like-btn" data-article-id="section1">点赞</button>
+            <span class="like-count" data-article-id="section1">0</span>
+        </h2>
+        <p>这是文章的引言部分，简单介绍了文章的主题和目的。这里可以写一些吸引人的内容，让读者对文章产生兴趣。</p>
+        <h2 id="section2">第二节：主要内容
+            <button class="like-btn" data-article-id="section2">点赞</button>
+            <span class="like-count" data-article-id="section2">0</span>
+        </h2>
+        <p>在这一部分，我们将详细讨论文章的主要内容，包括一些重要的信息和分析。这是文章的核心部分，会包含一些重要的知识点和观点。</p>
+        <h2 id="section3">第三节：结论
+            <button class="like-btn" data-article-id="section3">点赞</button>
+            <span class="like-count" data-article-id="section3">0</span>
+        </h2>
+        <p>最后，我们会对文章进行总结，得出一些结论，并可能提出一些建议或展望。这部分可以帮助读者回顾文章的主要内容，并引发进一步的思考。</p>
+    </div>
+    <div class="footer-toc">
+        <ul>
+            <li>
+                <h4>目录</h4>
+                <a href="../../index.html">首页</a>
+                <a href="../../about.html">关于我</a>
+                <a href="../article...ing/article...ing.html">联系</a>
+                <a href="../../login.html">登录</a>
+                <a href="../../register.html">注册</a>
+            </li>
+            <li>
+                <h4>为你推荐</h4>
+                <a href="">Surface Pro</a>
+                <a href="">Surface Laptop</a>
+                <a href="">Surface Pro 9</a>
+                <a href="">Surface Laptop 5</a>
+                <a href="">Microsoft Copilot</a>
+                <a href="">Microsoft 365</a>
+            </li>
+            <li>
+                <h4>账户</h4>
+                <a href="#">帐户个人资料</a>
+                <a href="#">下载中心</a>
+                <a href="#">订单跟踪</a>
+            </li>
+            <li>
+                <h4>教育</h4>
+                <a href="#">四下知识点</a>
+                <a href="#">教育设备</a>
+                <a href="#">Microsoft Teams 教育版</a>
+                <a href="#">Microsoft 365 教育版</a>
+                <a href="#">Office 教育版</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.onload = function () {
+            const sidebarTocList = document.getElementById('sidebar-toc-list');
+            const headings = document.querySelectorAll('.article h2');
+
+            headings.forEach((heading, index) => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                const likeCountElement = document.createElement('span');
+                link.textContent = heading.textContent;
+                link.href = `#${heading.id}`;
+                const articleId = heading.id;
+                const storedLikes = localStorage.getItem(articleId) || 0;
+                likeCountElement.textContent = `点赞 ${storedLikes}`;
+                link.appendChild(likeCountElement);
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    target.scrollIntoView({ behavior:'smooth' });
+                });
+                listItem.appendChild(link);
+                sidebarTocList.appendChild(listItem);
+            });
+
+            const likeBtns = document.querySelectorAll('.like-btn');
+            likeBtns.forEach((btn) => {
+                const articleId = btn.dataset.articleId;
+                const likeCountElement = btn.nextElementSibling;
+                let likes = localStorage.getItem(articleId) || 0;
+                likes = parseInt(likes);
+                likeCountElement.textContent = `点赞 ${likes}`;
+
+                btn.addEventListener('click', function () {
+                    likes++;
+                    localStorage.setItem(articleId, likes);
+                    likeCountElement.textContent = `点赞 ${likes}`;
+
+                    // 更新侧边目录栏的点赞数
+                    const sidebarLinks = document.querySelectorAll('#sidebar-toc-list a');
+                    sidebarLinks.forEach((link) => {
+                        if (link.textContent.includes(articleId)) {
+                            const sidebarLikeCount = link.querySelector('span');
+                            sidebarLikeCount.textContent = `点赞 ${likes}`;
+                        }
+                    });
+                });
+            });
+        };
+    </script>
+</body>
+
+</html>
